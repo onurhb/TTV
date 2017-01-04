@@ -24,6 +24,7 @@ public:
     void postRender();
     void preRender();
     void render();
+    void demo(double x, double y);
 };
 
 

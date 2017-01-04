@@ -22,6 +22,8 @@ set(GLFW_LOCATION ${DEPENDENCIES_LOCATION}/glfw)
 set(CURL_LOCATION ${DEPENDENCIES_LOCATION}/curl)
 #Path to ffmpeg
 set(FFMPEG_DIR ${DEPENDENCIES_LOCATION}/ffmpeg)
+#Path to ffmpeg
+set(LIBVLC_LOCATION ${DEPENDENCIES_LOCATION}/libvlc)
 #------------------------------------------------------------------------------
 include_directories(
         ${DEPENDENCIES_LOCATION}/glad/include
@@ -51,14 +53,14 @@ set(SOURCE_FILES
         Source/Graphics/Shader.cpp Source/Graphics/Shader.h
         Source/Graphics/Window.cpp Source/Graphics/Window.h
         Source/Graphics/UserInterface.cpp Source/Graphics/UserInterface.h
-        Source/config.h)
+        Source/config.h Source/Video/Stream.cpp Source/Video/Stream.h)
 #------------------------------------------------------------------------------
 add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${GLAD_SOURCE_FILES} ${NANOVG_SOURCE_FILES} ${NATIVEFILEDIALOGS_SOURCE_FILES})
 #------------------------------------------------------------------------------
 find_package(OpenGL REQUIRED)
 find_package(GLFW REQUIRED glfw3)
 find_package(CURL REQUIRED)
-find_package(FFMPEG REQUIRED)
+find_package(LIBVLC REQUIRED)
 
 #------------------------------------------------------------------------------
 if (OPENGL_FOUND)
@@ -78,18 +80,17 @@ if(CURL_FOUND)
     message("-- CURL library was found")
 endif()
 
-if (FFMPEG_FOUND)
-    include_directories(${FFMPEG_INCLUDE_DIR})
-    target_link_libraries(${PROJECT_NAME} ${FFMPEG_LIBRARIES})
-    message("-- FFMPEG library was found")
+if (LIBVLC_FOUND)
+    include_directories(${LIBVLC_INCLUDE_DIRS})
+    target_link_libraries(${PROJECT_NAME} ${LIBVLC_LIBRARIES})
+    message("-- LIBVLC library was found")
 endif ()
 #------------------------------------------------------------------------------
 
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
         "${DEPENDENCIES_LOCATION}/GLFW/bin/glfw3.dll"
-        $<TARGET_FILE_DIR:${PROJECT_NAME}>
-        COMMENT "Copying glfw3 .dll files to .exe folder")
+        $<TARGET_FILE_DIR:${PROJECT_NAME}>)
 
 add_custom_command(
         TARGET ${PROJECT_NAME} POST_BUILD
@@ -100,5 +101,5 @@ add_custom_command(
 add_custom_command(
         TARGET ${PROJECT_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${CMAKE_SOURCE_DIR}/Dependencies/FFMPEG/bin
+        ${CMAKE_SOURCE_DIR}/Dependencies/libvlc/bin
         $<TARGET_FILE_DIR:${PROJECT_NAME}>)

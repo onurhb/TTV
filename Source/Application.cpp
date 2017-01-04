@@ -7,6 +7,7 @@
 Application::Application()
         : window(WINDOW_TITLE, WINDOW_WIDTH, WINDOW_HEIGHT), interface(window.getWindow()) {
 
+
 }
 
 Application::~Application() {
@@ -17,7 +18,10 @@ Application::~Application() {
  * Handling rendering here...
  */
 void Application::render() {
+    double x, y;
+    window.getMousePosition(x, y);
     interface.render();
+    interface.demo(x, y);
 }
 
 /**

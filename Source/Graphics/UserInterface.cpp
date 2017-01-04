@@ -29,3 +29,10 @@ void UserInterface::render(){
     nvgFillColor(ctx, nvgRGB(255, 125, 125));
     nvgFill(ctx);
 }
+
+void UserInterface::demo(double x, double y) {
+    nvgBeginPath(ctx);
+    nvgCircle(ctx, x, y, 50);
+    nvgFillColor(ctx, nvgRGB(90, 50, 125));
+    nvgFill(ctx);
+}
