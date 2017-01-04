@@ -1,2 +1,5 @@
 cmake-build-debug/
 .idea
+Resources/*.mp4
+Resources/*.mp3
+Resources/*.wav

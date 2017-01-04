@@ -1,14 +1,12 @@
-#include <vlc/vlc.h>
 #include <iostream>
+#include "Application.h"
 
-int main(int argc, char* argv[])
+int main()
 {
-    libvlc_instance_t * inst;
-    libvlc_media_player_t *mp;
-    libvlc_media_t *m;
 
-    std::cout << libvlc_get_version();
 
+    Application app;
+    app.loop();
 
     return 0;
 }

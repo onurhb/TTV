@@ -1,11 +1,10 @@
-#version 450 core
+#version 330 core
 
-in vec4 out_color;
-out vec4 frag_color;
-in vec4 out_position;
-
+uniform sampler2D iChannel0;
+uniform vec2 iResolution;
 
 void main()
 {
-     frag_color = out_position;
+    vec2 uv = gl_FragCoord.xy / iResolution.xy;
+    gl_FragColor = texture2D(iChannel0, uv);
 }
