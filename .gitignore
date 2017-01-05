@@ -3,3 +3,4 @@ cmake-build-debug/
 Resources/*.mp4
 Resources/*.mp3
 Resources/*.wav
+Resources/*.m3u8
