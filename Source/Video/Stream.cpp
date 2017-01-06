@@ -33,11 +33,6 @@ void unlock(void *data, void *id, void *const *p_pixels) {
     ctx->imagemutex.unlock();
 }
 
-void display(void *data, void *id) {
-    auto *ctx = static_cast<Stream::CTX *>(data);
-}
-
-
 // ----------------------------------------------------------------
 Stream::Stream(unsigned int screenWidth, unsigned int screenHeight)
         : texture(screenWidth, screenHeight) {
@@ -49,6 +44,21 @@ Stream::Stream(unsigned int screenWidth, unsigned int screenHeight)
     createQuad();
     initializeVLC();
     initializeShader();
+}
+
+Stream::~Stream() {
+    // - Free OpenGL
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
+    glDeleteBuffers(1, &EBO);
+    // - Free VLC
+    if (streamPlaying) {
+        libvlc_media_player_stop(mediaPlayer);
+        libvlc_media_player_release(mediaPlayer);
+        libvlc_release(instance);
+    }
+    // - Free Pixels
+    delete[] ctx.pixeldata;
 }
 
 void Stream::createQuad() {
@@ -97,16 +107,11 @@ void Stream::initializeShader() {
     shader.loadFromString(vertShaderSrc, fragShaderSrc);
 }
 
-Stream::~Stream() {
-    destroy();
-}
-
 /**
  * @brief Opens a file and initializes vlc for playback
  * @param path : path to file
  */
 void Stream::openFile(std::string path) {
-    if (this->playing) destroy();
 
     // - Open the media
     media = libvlc_media_new_path(instance, path.c_str());
@@ -117,7 +122,6 @@ void Stream::openFile(std::string path) {
 }
 
 void Stream::openExternal(std::string URL) {
-    if (this->playing) destroy();
 
     // - Open the media
     media = libvlc_media_new_location(instance, URL.c_str());
@@ -130,29 +134,17 @@ void Stream::openExternal(std::string URL) {
 /**
  * @brief Should be called after a file has been initialized for playback
  * This will play the file and call the callback when a frame needs to be rendered
+ * @return returns true if stream is started
  */
-void Stream::play() {
+bool Stream::play() {
+    if(streamPlaying) return false;
     libvlc_video_set_format(mediaPlayer, "RV24", screenWidth, screenHeight, screenWidth * 3);
-    libvlc_video_set_callbacks(mediaPlayer, lock, unlock, display, &ctx);
+    libvlc_video_set_callbacks(mediaPlayer, lock, unlock, NULL, &ctx);
     libvlc_media_player_play(mediaPlayer);
-    this->playing = true;
+    this->streamPlaying = true;
+    return true;
 }
 
-/**
- * @brief Destroys stream and frees memory
- */
-void Stream::destroy() {
-    // - Free OpenGL
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
-    glDeleteBuffers(1, &EBO);
-    // - Free VLC
-    libvlc_media_player_stop(mediaPlayer);
-    libvlc_media_player_release(mediaPlayer);
-    libvlc_release(instance);
-    // - Free Pixels
-    delete[] ctx.pixeldata;
-}
 
 /**
  * @brief Render to screen
@@ -174,3 +166,34 @@ void Stream::render() {
 unsigned char *Stream::getPixels() {
     return this->ctx.pixeldata;
 }
+
+/**
+ * @brief Returns true or false on stream playing
+ * @return bool : is stream running
+ */
+bool Stream::isStreamPlaying() const {
+    return this->streamPlaying;
+}
+
+bool Stream::pause() {
+    if(!streamPlaying) return false;
+    libvlc_media_player_pause(mediaPlayer);
+    this->streamPlaying = false;
+    return true;
+}
+
+bool Stream::resume() {
+    if(streamPlaying) return false;
+    libvlc_media_player_play(mediaPlayer);
+    this->streamPlaying = true;
+    return true;
+}
+
+bool Stream::destroy() {
+    if(!streamPlaying) return false;
+    libvlc_media_player_stop(mediaPlayer);
+    libvlc_media_player_release(mediaPlayer);
+    this->streamPlaying = false;
+    return true;
+}
+

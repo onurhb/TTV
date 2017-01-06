@@ -17,6 +17,9 @@ class UserInterface {
     // - Window
     GLFWwindow *window;
 
+    // - Menu
+    std::array<std::string,3> menuOptions = {"Channels", "Videos", "Settings"};
+
 
 public:
     UserInterface(GLFWwindow *window);
@@ -24,7 +27,10 @@ public:
     void postRender();
     void preRender();
     void render();
-    void demo(double x, double y);
+
+    // ------------------- COMPONENTS
+    void drawMenu(NVGcontext* ctx, float x, float y, float w, float h);
+    void drawClock(NVGcontext* ctx, float x, float y, float w, float h);
 };
 
 

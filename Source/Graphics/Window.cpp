@@ -31,7 +31,7 @@ Window::~Window() {
 void keyCallback(GLFWwindow *window_ptr, int key, int scancode, int state, int mods) {
     // - Action tells if key is pressed or released
     Window *_window = static_cast<Window *>(glfwGetWindowUserPointer(window_ptr));
-    _window->keys[key] = state != GLFW_RELEASE;
+    _window->keys[key] = (bool) state == GLFW_PRESS;
 }
 
 /**

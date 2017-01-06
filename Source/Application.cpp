@@ -9,9 +9,7 @@ Application::Application()
           stream(WINDOW_WIDTH, WINDOW_HEIGHT),
           interface(window.getWindow()) {
 
-    stream.openExternal("http://trkvz-live.ercdn.net/ahaberhd/ahaberhd_720p.m3u8?st=7iNh2ZfQ1Qo1Xt0BUhKU3A&e=1483672006");
-//    stream.openFile("sample.mp4");
-    stream.play();
+
 
 }
 
@@ -25,6 +23,7 @@ Application::~Application() {
 void Application::render() {
 
     stream.render();
+    interface.render();
 
 }
 
@@ -33,7 +32,18 @@ void Application::render() {
  * @return Success / Unsuccess
  */
 void Application::update() {
-
+    if (window.getKeyPressed(GLFW_KEY_S)) {
+        if(stream.isStreamPlaying()){
+            return;
+        }
+//        stream.openExternal("http://trkvz-live.ercdn.net/ahaberhd/ahaberhd_720p.m3u8?st=ufqmcDHE5CzqKCAHN6WOdQ&e=1483736002");
+        stream.openFile("sample.mp4");
+        stream.play();
+    }else if(window.getKeyPressed(GLFW_KEY_P)) {
+        stream.pause();
+    }else if(window.getKeyPressed(GLFW_KEY_R)) {
+        stream.resume();
+    }
 }
 
 /**
