@@ -1,5 +1,6 @@
 #include <assert.h>
 #include "Stream.h"
+#include "../config.h"
 
 const char *vertShaderSrc = "#version 330 core\n"
         "layout (location = 0) in vec4 position;\n"
@@ -40,6 +41,10 @@ Stream::Stream(unsigned int screenWidth, unsigned int screenHeight)
     // - Member variables
     this->screenHeight = screenHeight;
     this->screenWidth = screenWidth;
+
+    // - Initialize pixel array
+    ctx.pixeldata = new unsigned char[screenWidth * screenHeight * 3];
+
     // - Setup
     createQuad();
     initializeVLC();
@@ -52,7 +57,7 @@ Stream::~Stream() {
     glDeleteBuffers(1, &VBO);
     glDeleteBuffers(1, &EBO);
     // - Free VLC
-    if (streamPlaying) {
+    if (streamInitialized) {
         libvlc_media_player_stop(mediaPlayer);
         libvlc_media_player_release(mediaPlayer);
         libvlc_release(instance);
@@ -95,8 +100,6 @@ void Stream::initializeVLC() {
     int vlc_argc = sizeof(vlc_argv) / sizeof(*vlc_argv);
     instance = libvlc_new(vlc_argc, vlc_argv);
 
-    // - Initialize pixel array
-    ctx.pixeldata = new unsigned char[screenWidth * screenHeight * 3];
 }
 
 void Stream::initializeShader() {
@@ -137,11 +140,11 @@ void Stream::openExternal(std::string URL) {
  * @return returns true if stream is started
  */
 bool Stream::play() {
-    if(streamPlaying) return false;
+    if(streamInitialized) return false;
     libvlc_video_set_format(mediaPlayer, "RV24", screenWidth, screenHeight, screenWidth * 3);
     libvlc_video_set_callbacks(mediaPlayer, lock, unlock, NULL, &ctx);
     libvlc_media_player_play(mediaPlayer);
-    this->streamPlaying = true;
+    this->streamInitialized = true;
     return true;
 }
 
@@ -172,28 +175,29 @@ unsigned char *Stream::getPixels() {
  * @return bool : is stream running
  */
 bool Stream::isStreamPlaying() const {
-    return this->streamPlaying;
+    return this->streamInitialized;
 }
 
 bool Stream::pause() {
-    if(!streamPlaying) return false;
+    if(streamPaused) return false;
     libvlc_media_player_pause(mediaPlayer);
-    this->streamPlaying = false;
+    this->streamPaused = true;
     return true;
 }
 
 bool Stream::resume() {
-    if(streamPlaying) return false;
+    if(!streamPaused) return false;
     libvlc_media_player_play(mediaPlayer);
-    this->streamPlaying = true;
+    this->streamPaused = false;
     return true;
 }
 
 bool Stream::destroy() {
-    if(!streamPlaying) return false;
+    if(!streamInitialized) return false;
     libvlc_media_player_stop(mediaPlayer);
     libvlc_media_player_release(mediaPlayer);
-    this->streamPlaying = false;
+    this->streamInitialized = false;
+    this->streamPaused = false;
     return true;
 }
 

@@ -31,7 +31,7 @@ Window::~Window() {
 void keyCallback(GLFWwindow *window_ptr, int key, int scancode, int state, int mods) {
     // - Action tells if key is pressed or released
     Window *_window = static_cast<Window *>(glfwGetWindowUserPointer(window_ptr));
-    _window->keys[key] = (bool) state == GLFW_PRESS;
+    _window->keys[key] = (bool) state != GLFW_RELEASE;
 }
 
 /**
@@ -67,6 +67,19 @@ void frameBufferCallback(GLFWwindow *window_ptr, int width, int height) {
     glViewport(0, 0, width, height);
 }
 
+void mouseButtonCallback(GLFWwindow* window_ptr, int button, int action, int mods)
+{
+    Window *_window = static_cast<Window *>(glfwGetWindowUserPointer(window_ptr));
+
+    if (button == GLFW_MOUSE_BUTTON_RIGHT){
+        action == GLFW_PRESS ? (_window->mouseRight = true) : (_window->mouseRight = false);
+    }else{
+        action == GLFW_PRESS ? (_window->mouseLeft = true) : (_window->mouseLeft = false);
+
+    }
+
+}
+
 /**
  * Prepare window
  * @return true/false
@@ -97,6 +110,7 @@ bool Window::initialize() {
     glfwSetKeyCallback(windowPointer, keyCallback);
     glfwSetScrollCallback(windowPointer, scrollCallback);
     glfwSetCursorPosCallback(windowPointer, mouseCallback);
+    glfwSetMouseButtonCallback(windowPointer, mouseButtonCallback);
     glfwSetFramebufferSizeCallback(windowPointer, frameBufferCallback);
 
     return true;
@@ -186,6 +200,14 @@ void Window::getScrollOffset(double &xoffset, double &yoffset) {
  */
 GLFWwindow* Window::getWindow() const {
     return windowPointer;
+}
+
+bool Window::isMouseRightPressed() const {
+    return mouseRight;
+}
+
+bool Window::isMouseLeftPressed() const {
+    return mouseLeft;
 }
 
 

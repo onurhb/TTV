@@ -23,7 +23,8 @@ class Stream {
 
     // - Other
     unsigned int screenWidth, screenHeight;
-    bool streamPlaying = false;
+    bool streamInitialized = false;
+    bool streamPaused = false;
 
     // - Graphics
     Texture texture;

@@ -15,6 +15,9 @@ class Application {
     UserInterface interface;
     Stream stream;
 
+    // - Settings
+    bool displayOverlay = true;
+
 
 public:
     Application();

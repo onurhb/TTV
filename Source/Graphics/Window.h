@@ -13,16 +13,15 @@
 
 class Window {
 
-private:
     std::string windowTitle;
     GLFWwindow *windowPointer;
 
+    bool mouseLeft = false, mouseRight = false;
     int windowWidth, windowHeight;
-    bool keys[MAX_KEYS];         // - Keys
-    double mouseX, mouseY;      // - Mouse
+    double xoffset, yoffset;
+    double mouseX, mouseY;
+    bool keys[MAX_KEYS];
 
-
-    double xoffset, yoffset;    // - Scroll
 public:
     Window(std::string title, int height, int width);
     ~Window();
@@ -30,20 +29,23 @@ public:
     bool initialize();
     // - Handle window
     void update() const;
-    bool closed() const;
     void destroy() const;
+    bool closed() const;
     void clear();
     // - Getters
-    void getMousePosition(double &x, double &y) const;
     void getScrollOffset(double &xoffset, double &yoffset);
+    void getMousePosition(double &x, double &y) const;
+    bool isMouseLeftPressed() const;
+    bool isMouseRightPressed() const;
     bool getKeyPressed(int key) const;
-
     GLFWwindow* getWindow() const;
+
 private:
     static bool loadContext();
     friend void keyCallback(GLFWwindow *window_ptr, int key, int scancode, int state, int mods);
-    friend void mouseCallback(GLFWwindow *window_ptr, double xpos, double ypos);
+    friend void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
     friend void scrollCallback(GLFWwindow *window, double xoffset, double yoffset);
+    friend void mouseCallback(GLFWwindow *window_ptr, double xpos, double ypos);
 };
 
 #endif // PROJECT_WINDOW_H
