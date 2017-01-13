@@ -7,6 +7,8 @@
 #include <string>
 #include <mutex>
 #include <stb_image.h>
+#include <json.hpp>
+#include <vector>
 
 class Stream {
 
@@ -14,6 +16,8 @@ class Stream {
         unsigned char *pixeldata;
         std::mutex imagemutex;
     } ctx;
+
+
 
 
     // - VLC

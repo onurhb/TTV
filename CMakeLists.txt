@@ -30,6 +30,7 @@ include_directories(
         ${DEPENDENCIES_LOCATION}/glm/glm
         ${DEPENDENCIES_LOCATION}/curl/include
         ${DEPENDENCIES_LOCATION}/nanovg
+        ${DEPENDENCIES_LOCATION}/json
 )
 
 #------------------------------------------------------------------------------

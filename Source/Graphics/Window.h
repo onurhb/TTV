@@ -16,6 +16,7 @@ class Window {
     std::string windowTitle;
     GLFWwindow *windowPointer;
 
+    bool fullScreen = false;
     bool mouseLeft = false, mouseRight = false;
     int windowWidth, windowHeight;
     double xoffset, yoffset;
@@ -23,7 +24,7 @@ class Window {
     bool keys[MAX_KEYS];
 
 public:
-    Window(std::string title, int height, int width);
+    Window(std::string title, int height = 0, int width = 0);
     ~Window();
     // - Initialize window
     bool initialize();
@@ -39,11 +40,14 @@ public:
     bool isMouseRightPressed() const;
     bool getKeyPressed(int key) const;
     GLFWwindow* getWindow() const;
+    int getWidth() const;
+    int getHeight() const;
 
 private:
     static bool loadContext();
     friend void keyCallback(GLFWwindow *window_ptr, int key, int scancode, int state, int mods);
     friend void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
+    friend void windowResizeCallback(GLFWwindow *window_ptr, int width, int height);
     friend void scrollCallback(GLFWwindow *window, double xoffset, double yoffset);
     friend void mouseCallback(GLFWwindow *window_ptr, double xpos, double ypos);
 };

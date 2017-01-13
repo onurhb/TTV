@@ -2,6 +2,7 @@
 /// @file glm/gtc/type_precision.hpp
 ///
 /// @see core (dependence)
+/// @see gtc_half_float (dependence)
 /// @see gtc_quaternion (dependence)
 ///
 /// @defgroup gtc_type_precision GLM_GTC_type_precision
@@ -17,8 +18,8 @@
 #pragma once
 
 // Dependency:
-#include "../gtc/quaternion.hpp"
-#include "../gtc/vec1.hpp"
+#include "quaternion.hpp"
+#include "vec1.hpp"
 #include "../vec2.hpp"
 #include "../vec3.hpp"
 #include "../vec4.hpp"

@@ -8,6 +8,7 @@ Window::Window(std::string title, int width, int height) {
     this->windowTitle = title;
     this->windowWidth = width;
     this->windowHeight = height;
+
     // - Initialize buffers
     for (int i = 0; i < MAX_KEYS; ++i) keys[i] = false;
 
@@ -45,6 +46,7 @@ void mouseCallback(GLFWwindow *window_ptr, double mx, double my) {
     _window->mouseX = mx;
     _window->mouseY = my;
 }
+
 /**
  * Scroll
  * @param window_ptr
@@ -56,24 +58,26 @@ void scrollCallback(GLFWwindow *window_ptr, double xoffset, double yoffset) {
     _window->xoffset = xoffset;
     _window->yoffset = yoffset;
 }
+
 /**
  * Resize
  * @param window_ptr
  * @param width
  * @param height
  */
-void frameBufferCallback(GLFWwindow *window_ptr, int width, int height) {
+void windowResizeCallback(GLFWwindow *window_ptr, int width, int height) {
     Window *_window = static_cast<Window *>(glfwGetWindowUserPointer(window_ptr));
+    _window->windowWidth = width;
+    _window->windowHeight = height;
     glViewport(0, 0, width, height);
 }
 
-void mouseButtonCallback(GLFWwindow* window_ptr, int button, int action, int mods)
-{
+void mouseButtonCallback(GLFWwindow *window_ptr, int button, int action, int mods) {
     Window *_window = static_cast<Window *>(glfwGetWindowUserPointer(window_ptr));
 
-    if (button == GLFW_MOUSE_BUTTON_RIGHT){
+    if (button == GLFW_MOUSE_BUTTON_RIGHT) {
         action == GLFW_PRESS ? (_window->mouseRight = true) : (_window->mouseRight = false);
-    }else{
+    } else {
         action == GLFW_PRESS ? (_window->mouseLeft = true) : (_window->mouseLeft = false);
 
     }
@@ -91,8 +95,16 @@ bool Window::initialize() {
         return false;
     }
 
+    if (windowWidth == 0) {
+        this->fullScreen = true;
+        const GLFWvidmode *mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+        windowWidth = mode->width;
+        windowHeight = mode->height;
+    }
+
     // - Create a window and its OpenGL context
-    windowPointer = glfwCreateWindow(windowWidth, windowHeight, windowTitle.c_str(), nullptr, nullptr);
+    windowPointer = glfwCreateWindow(windowWidth, windowHeight, windowTitle.c_str(),
+                                     fullScreen ? glfwGetPrimaryMonitor() : nullptr, nullptr);
 
     if (!windowPointer) {
         std::cerr << "Failed to create a window with GLFW" << std::endl;
@@ -103,6 +115,7 @@ bool Window::initialize() {
     // - Use window as current context
     glfwMakeContextCurrent(windowPointer);
 
+
     loadContext();
 
     // - Callbacks
@@ -111,7 +124,7 @@ bool Window::initialize() {
     glfwSetScrollCallback(windowPointer, scrollCallback);
     glfwSetCursorPosCallback(windowPointer, mouseCallback);
     glfwSetMouseButtonCallback(windowPointer, mouseButtonCallback);
-    glfwSetFramebufferSizeCallback(windowPointer, frameBufferCallback);
+    glfwSetFramebufferSizeCallback(windowPointer, windowResizeCallback);
 
     return true;
 }
@@ -198,7 +211,7 @@ void Window::getScrollOffset(double &xoffset, double &yoffset) {
  * Returns a pointer to the window
  * @return GLFWwindow*
  */
-GLFWwindow* Window::getWindow() const {
+GLFWwindow *Window::getWindow() const {
     return windowPointer;
 }
 
@@ -208,6 +221,14 @@ bool Window::isMouseRightPressed() const {
 
 bool Window::isMouseLeftPressed() const {
     return mouseLeft;
+}
+
+int Window::getWidth() const {
+    return windowWidth;
+}
+
+int Window::getHeight() const {
+    return windowHeight;
 }
 
 

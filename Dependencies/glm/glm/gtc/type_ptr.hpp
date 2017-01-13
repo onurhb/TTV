@@ -2,6 +2,7 @@
 /// @file glm/gtc/type_ptr.hpp
 ///
 /// @see core (dependence)
+/// @see gtc_half_float (dependence)
 /// @see gtc_quaternion (dependence)
 ///
 /// @defgroup gtc_type_ptr GLM_GTC_type_ptr
@@ -33,7 +34,7 @@
 #pragma once
 
 // Dependency:
-#include "../gtc/quaternion.hpp"
+#include "quaternion.hpp"
 #include "../vec2.hpp"
 #include "../vec3.hpp"
 #include "../vec4.hpp"

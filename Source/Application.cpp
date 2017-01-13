@@ -1,19 +1,52 @@
 
 // ---------------- INCLUDES
+#include <fstream>
 #include "Application.h"
 // ----------------
 
 
 Application::Application()
         : window(WINDOW_TITLE, WINDOW_WIDTH, WINDOW_HEIGHT),
-          stream(WINDOW_WIDTH, WINDOW_HEIGHT),
-          interface(window.getWindow()) {
+          stream(window.getWidth(), window.getHeight()),
+          interface(window.getWidth(), window.getHeight()) {
+
+    if (!getChannels()) {
+        std::cerr << "Could not parse playlist.tivi. Make sure it exists and is in correct format." << std::endl;
+    }else{
+        std::vector<std::string> channelNames;
+        for (auto &&channel : channels) channelNames.push_back(channel.name);
+        interface.setChannels(channelNames);
+    }
+
 
 
 }
 
 Application::~Application() {
 
+}
+
+/**
+ * Looks for playlist.tivi and parses the file
+ * Must be in json format having same format as struct Stream
+ * @return true if success
+ */
+bool Application::getChannels() {
+
+    std::ifstream t("playlist.tivi");
+    nlohmann::json j;
+    t >> j;
+    if(j.empty()) return false;
+
+    // - Parse and fill channels list
+    for (nlohmann::json e : j) {
+        std::string n = e.at("Name");
+        std::string l = e.at("Link");
+        std::string r = e.at("LastRefresh");
+        channels.push_back(Channel{n, l, r});
+    }
+
+    return true;
 }
 
 /**
@@ -34,13 +67,18 @@ void Application::update() {
 
     double x, y;
     window.getMousePosition(x, y);
-    interface.update(x, y, window.isMouseLeftPressed());
-
+    interface.update(x, y, window.isMouseLeftPressed(), window.getWidth(), window.getHeight());
+    if(activeChannelIndex != interface.getActiveChannel()){
+        std::cout << "Changing channel" << std::endl;
+        activeChannelIndex = interface.getActiveChannel();
+        stream.destroy();
+        stream.openExternal(channels.at(activeChannelIndex).link);
+        stream.play();
+    }
 
     if (window.getKeyPressed(GLFW_KEY_S)) {
         if (stream.isStreamPlaying())return;
-        displayOverlay = false;
-        stream.openExternal("http://trkvz-live.ercdn.net/ahaberhd/ahaberhd.m3u8?st=NMOb1udJYVebDxWB31Bi9g&e=1483829728");
+        stream.openExternal(channels.at(activeChannelIndex).link);
         stream.play();
     } else if (window.getKeyPressed(GLFW_KEY_P)) {
         displayOverlay = true;
@@ -58,8 +96,8 @@ bool Application::loop() {
         window.clear();
         interface.preRender();
         {
-            render();
             update();
+            render();
         }
         interface.postRender();
         window.update();

@@ -8,6 +8,7 @@
 #include <nanovg.h>
 #include <string>
 #include <array>
+#include <vector>
 
 class UserInterface {
 
@@ -15,24 +16,25 @@ class UserInterface {
     NVGcontext *ctx = nullptr;
 
     // - Window
-    GLFWwindow *window;
-
+    int windowWidth, windowHeight;
     double mouseX, mouseY;
     bool click = false;
 
     // - Menu
     std::array<std::string, 3> menuOptions = {"Channels", "Videos", "Settings"};
-    std::array<std::string, 5> channels = {"A Haber", "HaberTurk", "NTV", "CNN", "TVNET"};
+    std::vector<std::string> channels;
     int selectedMenuOption = -1;
     int selectedChannelOption = 0;
 
 public:
-    UserInterface(GLFWwindow *window);
+    UserInterface(int windowWidth, int windowHeight);
     ~UserInterface();
     void postRender();
     void preRender();
     void render();
-    void update(double mouseX, double mouseY, bool click);
+    void update(double mouseX, double mouseY, bool click, int wWidth, int wHeight);
+    unsigned int getActiveChannel() const;
+
     // ------------------- COMPONENTS
     void drawMenu(NVGcontext *ctx, float x, float y, float w, float h);
     void drawClock(NVGcontext *ctx, float x, float y, float w, float h);
@@ -41,6 +43,7 @@ public:
 
     // ------------------- HELPERS
     bool insideRectangle(float rectX, float rectY, float rectW, float rectH);
+    void setChannels(std::vector<std::string> channelNames);
 };
 
 

@@ -12,10 +12,6 @@
 
 #pragma once
 
-#ifndef GLM_ENABLE_EXPERIMENTAL
-#	error "GLM: GLM_GTX_type_trait is an experimental extension and may change in the future. Use #define GLM_ENABLE_EXPERIMENTAL before including it, if you really want to use it."
-#endif
-
 // Dependency:
 #include "../detail/type_vec2.hpp"
 #include "../detail/type_vec3.hpp"
@@ -30,7 +26,7 @@
 #include "../detail/type_mat4x3.hpp"
 #include "../detail/type_mat4x4.hpp"
 #include "../gtc/quaternion.hpp"
-#include "../gtx/dual_quaternion.hpp"
+#include "dual_quaternion.hpp"
 
 #if GLM_MESSAGES == GLM_MESSAGES_ENABLED && !defined(GLM_EXT_INCLUDED)
 #	pragma message("GLM: GLM_GTX_type_trait extension included")

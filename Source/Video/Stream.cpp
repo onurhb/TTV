@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <fstream>
 #include "Stream.h"
 #include "../config.h"
 
@@ -140,7 +141,7 @@ void Stream::openExternal(std::string URL) {
  * @return returns true if stream is started
  */
 bool Stream::play() {
-    if(streamInitialized) return false;
+    if (streamInitialized) return false;
     libvlc_video_set_format(mediaPlayer, "RV24", screenWidth, screenHeight, screenWidth * 3);
     libvlc_video_set_callbacks(mediaPlayer, lock, unlock, NULL, &ctx);
     libvlc_media_player_play(mediaPlayer);
@@ -179,25 +180,27 @@ bool Stream::isStreamPlaying() const {
 }
 
 bool Stream::pause() {
-    if(streamPaused) return false;
+    if (streamPaused) return false;
     libvlc_media_player_pause(mediaPlayer);
     this->streamPaused = true;
     return true;
 }
 
 bool Stream::resume() {
-    if(!streamPaused) return false;
+    if (!streamPaused) return false;
     libvlc_media_player_play(mediaPlayer);
     this->streamPaused = false;
     return true;
 }
 
 bool Stream::destroy() {
-    if(!streamInitialized) return false;
+    if (!streamInitialized) return false;
     libvlc_media_player_stop(mediaPlayer);
     libvlc_media_player_release(mediaPlayer);
     this->streamInitialized = false;
     this->streamPaused = false;
     return true;
 }
+
+
 
