@@ -6,6 +6,7 @@
 #include "Graphics/Window.h"
 #include "Graphics/Shader.h"
 #include "Video/Stream.h"
+#include "Utils/Thread.h"
 #include <json.hpp>
 #include <glm.hpp>
 
@@ -25,6 +26,7 @@ class Application {
     Window window;
     UserInterface interface;
     Stream stream;
+    Thread thread;
 
     // - Settings
     bool displayOverlay = true;
@@ -37,7 +39,7 @@ public:
     bool loop();
 
 private:
-    void update();
+    void update(bool &closed);
     void render();
     bool getChannels();
 };

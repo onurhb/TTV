@@ -8,7 +8,8 @@
 Application::Application()
         : window(WINDOW_TITLE, WINDOW_WIDTH, WINDOW_HEIGHT),
           stream(window.getWidth(), window.getHeight()),
-          interface(window.getWidth(), window.getHeight()) {
+          interface(window.getWidth(), window.getHeight()),
+            thread(false){
 
     if (!getChannels()) {
         std::cerr << "Could not parse playlist.tivi. Make sure it exists and is in correct format." << std::endl;
@@ -63,28 +64,29 @@ void Application::render() {
  *  Will destroy application
  * @return Success / Unsuccess
  */
-void Application::update() {
+void Application::update(bool& closed) {
+   while(!closed){
+       double x, y;
+       window.getMousePosition(x, y);
+       interface.update(x, y, window.isMouseLeftPressed(), window.getWidth(), window.getHeight());
+       if(activeChannelIndex != interface.getActiveChannel()){
+           std::cout << "Changing channel" << std::endl;
+           activeChannelIndex = interface.getActiveChannel();
+           stream.destroy();
+           stream.openExternal(channels.at(activeChannelIndex).link);
+           stream.play();
+       }
 
-    double x, y;
-    window.getMousePosition(x, y);
-    interface.update(x, y, window.isMouseLeftPressed(), window.getWidth(), window.getHeight());
-    if(activeChannelIndex != interface.getActiveChannel()){
-        std::cout << "Changing channel" << std::endl;
-        activeChannelIndex = interface.getActiveChannel();
-        stream.destroy();
-        stream.openExternal(channels.at(activeChannelIndex).link);
-        stream.play();
-    }
-
-    if (window.getKeyPressed(GLFW_KEY_S)) {
-        if (stream.isStreamPlaying())return;
-        stream.openExternal(channels.at(activeChannelIndex).link);
-        stream.play();
-    } else if (window.getKeyPressed(GLFW_KEY_P)) {
-        displayOverlay = true;
-    } else if (window.getKeyPressed(GLFW_KEY_R)) {
-        displayOverlay = false;
-    }
+       if (window.getKeyPressed(GLFW_KEY_S)) {
+           if (stream.isStreamPlaying())return;
+           stream.openExternal(channels.at(activeChannelIndex).link);
+           stream.play();
+       } else if (window.getKeyPressed(GLFW_KEY_P)) {
+           displayOverlay = true;
+       } else if (window.getKeyPressed(GLFW_KEY_R)) {
+           displayOverlay = false;
+       }
+   }
 }
 
 /**
@@ -92,15 +94,21 @@ void Application::update() {
  * @return Success / Unsuccess
  */
 bool Application::loop() {
+
+    bool closed = false;
+    thread.startThread(Application::update, this, std::ref(closed));
+
     while (!window.closed()) {
         window.clear();
         interface.preRender();
         {
-            update();
             render();
         }
         interface.postRender();
         window.update();
     }
+
+    closed = true;
+    thread.join();
 }
 
