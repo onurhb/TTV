@@ -1,6 +1,4 @@
-# Simple OpenGL boilerplate
-Includes ImGui widget library, glfw for window managment, glm for maths and glad OpenGL loader.
+# Tivi
+Tivi is a minimal turkish live stream client for streaming turkish TV using VLC. <br/>
 
-# Setup
-
-`git clone git@github.com:onurhb/GLboiler.git --recurse-submodules`
+Currently under development and not even at alpha stage.
