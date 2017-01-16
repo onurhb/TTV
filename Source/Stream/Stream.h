@@ -10,14 +10,19 @@
 #include <json.hpp>
 #include <vector>
 
+
+enum STREAMSTATE{
+    NOTHING = 0, OPENING = 1, BUFFERING = 2, PLAYING = 3, PAUSED = 4, STOPPED = 5, ENDED = 6, ERR = 7
+};
+
 class Stream {
+
+
 
     struct CTX {
         unsigned char *pixeldata;
         std::mutex imagemutex;
     } ctx;
-
-
 
 
     // - VLC
@@ -57,6 +62,7 @@ public:
     // ----------------------------- GETTERS
     unsigned char *getPixels();
     bool isStreamPlaying() const;
+    STREAMSTATE getState();
 };
 
 

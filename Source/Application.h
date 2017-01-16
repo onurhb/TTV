@@ -5,7 +5,7 @@
 #include "Graphics/UserInterface.h"
 #include "Graphics/Window.h"
 #include "Graphics/Shader.h"
-#include "Video/Stream.h"
+#include "Stream/Stream.h"
 #include "Utils/Thread.h"
 #include <json.hpp>
 #include <glm.hpp>

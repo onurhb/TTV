@@ -54,7 +54,7 @@ set(SOURCE_FILES
         Source/Graphics/Shader.cpp Source/Graphics/Shader.h
         Source/Graphics/Window.cpp Source/Graphics/Window.h
         Source/Graphics/UserInterface.cpp Source/Graphics/UserInterface.h
-        Source/config.h Source/Video/Stream.cpp Source/Video/Stream.h)
+        Source/config.h Source/Stream/Stream.cpp Source/Stream/Stream.h)
 #------------------------------------------------------------------------------
 add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${GLAD_SOURCE_FILES} ${NANOVG_SOURCE_FILES} ${NATIVEFILEDIALOGS_SOURCE_FILES})
 #------------------------------------------------------------------------------

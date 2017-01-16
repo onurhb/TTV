@@ -125,7 +125,7 @@ typedef struct libvlc_media_stats_t
     int         i_decoded_video;
     int         i_decoded_audio;
 
-    /* Video Output */
+    /* Stream Output */
     int         i_displayed_pictures;
     int         i_lost_pictures;
 
@@ -157,7 +157,7 @@ typedef struct libvlc_media_track_info_t
             unsigned    i_rate;
         } audio;
         struct {
-            /* Video specific */
+            /* Stream specific */
             unsigned    i_height;
             unsigned    i_width;
         } video;

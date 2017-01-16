@@ -41,9 +41,9 @@ bool Application::getChannels() {
 
     // - Parse and fill channels list
     for (nlohmann::json e : j) {
-        std::string n = e.at("Name");
-        std::string l = e.at("Link");
-        std::string r = e.at("LastRefresh");
+        std::string n = e.at("StreamName");
+        std::string l = e.at("StreamSource");
+        std::string r = e.at("StreamLastRefresh");
         channels.push_back(Channel{n, l, r});
     }
 
@@ -57,6 +57,7 @@ void Application::render() {
 
     stream.render();
     if(displayOverlay) interface.render();
+    if(stream.getState() == OPENING) interface.renderState();
 
 }
 
@@ -65,23 +66,30 @@ void Application::render() {
  * @return Success / Unsuccess
  */
 void Application::update(bool& closed) {
+
+    // - Initially open first channel
+    stream.openExternal(channels.at(activeChannelIndex).link);
+    stream.play();
+
    while(!closed){
+
+
+       // - Give interface mouse information
        double x, y;
        window.getMousePosition(x, y);
        interface.update(x, y, window.isMouseLeftPressed(), window.getWidth(), window.getHeight());
+
+       // - If any other channel is selected
        if(activeChannelIndex != interface.getActiveChannel()){
-           std::cout << "Changing channel" << std::endl;
            activeChannelIndex = interface.getActiveChannel();
-           stream.destroy();
+           if(stream.isStreamPlaying()) stream.destroy();
            stream.openExternal(channels.at(activeChannelIndex).link);
            stream.play();
+           displayOverlay = false;
        }
 
-       if (window.getKeyPressed(GLFW_KEY_S)) {
-           if (stream.isStreamPlaying())return;
-           stream.openExternal(channels.at(activeChannelIndex).link);
-           stream.play();
-       } else if (window.getKeyPressed(GLFW_KEY_P)) {
+       // - Display menu
+       if (window.getKeyPressed(GLFW_KEY_P)) {
            displayOverlay = true;
        } else if (window.getKeyPressed(GLFW_KEY_R)) {
            displayOverlay = false;
@@ -96,6 +104,8 @@ void Application::update(bool& closed) {
 bool Application::loop() {
 
     bool closed = false;
+
+    // - Updates are handled by another thread
     thread.startThread(Application::update, this, std::ref(closed));
 
     while (!window.closed()) {

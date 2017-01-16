@@ -1,1 +1,66 @@
-[{"Name":"A Haber","Source":"http://www.ahaber.com.tr/webtv/canli-yayin","Identifier":"720p.m3u8","Link":"http://trkvz-live.ercdn.net/ahaberhd/ahaberhd_720p.m3u8?st=b_SIForqcPW-JYqnMXwTow&e=1484389647","LastRefresh":"2017-01-13T23:53:10.4435853+01:00","RefreshInterval":24},{"Name":"ATV","Source":"http://www.atv.com.tr/webtv/canli-yayin","Identifier":"720p.m3u8","Link":"http://trkvz-live.ercdn.net/atvhd/atvhd_720p.m3u8?st=8rT2OF4HKynUAUNglEC45Q&e=1484389650","LastRefresh":"2017-01-13T23:53:15.5358464+01:00","RefreshInterval":24},{"Name":"Haber Turk","Source":"http://www.haberturk.com/canliyayin","Identifier":".m3u8?token","Link":"http://mn-i.mncdn.com/haberturk/smil:haberturk.smil/playlist.m3u8?token=274a77879055785c0602041a4a7337c90f5c4fcbabbcb1a3","LastRefresh":"2017-01-13T23:53:18.7448692+01:00","RefreshInterval":1},{"Name":"TRT Haber","Source":"http://www.trt.net.tr/anasayfa/canli.aspx?y=tv&k=trthaber","Identifier":"index_1500_av-p.m3u8","Link":"http://trtcanlitv-lh.akamaihd.net/i/TRTHABERHD_1@181942/index_1500_av-p.m3u8?sd=10&rebase=on","LastRefresh":"2017-01-13T23:53:25.3353158+01:00","RefreshInterval":24}]
+[
+  {
+    "StreamName": "A Haber",
+    "StreamWebsite": "http://www.ahaber.com.tr/webtv/canli-yayin",
+    "StreamSource": "http://trkvz-live.ercdn.net/ahaberhd/ahaberhd_720p.m3u8?st=JUp0rqalvxzbiSX1Jkz-HQ&e=1484618198",
+    "StreamUniqueKeyword": "720p.m3u8",
+    "StreamRefreshInterval": 12,
+    "StreamLastRefresh": "2017-01-16T15:22:21.6063686+01:00"
+  },
+  {
+    "StreamName": "TRT Haber",
+    "StreamWebsite": "http://www.trt.net.tr/anasayfa/canli.aspx?y=tv&k=trt1",
+    "StreamSource": "http://trtcanlitv-lh.akamaihd.net/i/TRT1HD_1@181842/index_1500_av-b.m3u8?sd=10&rebase=on",
+    "StreamUniqueKeyword": "index_1500_av-b.m3u8",
+    "StreamRefreshInterval": -1,
+    "StreamLastRefresh": "2017-01-15T00:44:36.3420045+01:00"
+  },
+  {
+    "StreamName": "HaberTurk",
+    "StreamWebsite": "http://www.haberturk.com/canliyayin",
+    "StreamSource": "http://mn-i.mncdn.com/haberturk/smil:haberturk.smil/chunklist_w932909458_b848000.m3u8?token=9e4fe0b22e2b212965291329e8fb4489bf2685ac6a69e243",
+    "StreamUniqueKeyword": ".m3u8?token",
+    "StreamRefreshInterval": 1,
+    "StreamLastRefresh": "2017-01-16T22:49:25.2563763+01:00"
+  },
+  {
+    "StreamName": "ATV",
+    "StreamWebsite": "http://atv.com.tr/webtv/canli-yayin",
+    "StreamSource": "http://trkvz-live.ercdn.net/atvhd/atvhd_720p.m3u8?st=bazR3i5dQv-j8pSinkIUQw&e=1484618203",
+    "StreamUniqueKeyword": "720p.m3u8",
+    "StreamRefreshInterval": 12,
+    "StreamLastRefresh": "2017-01-16T15:22:26.2965505+01:00"
+  },
+  {
+    "StreamName": "Show TV",
+    "StreamWebsite": "http://www.showtv.com.tr/canli-yayin/showtv",
+    "StreamSource": "http://mn-i.mncdn.com/showtv_ios/smil:showtv.smil/chunklist_w1208863216_b848000.m3u8?token=aaa7c845d310a0e68ceb4b3f46d0e896fc164caad6ed9c69",
+    "StreamUniqueKeyword": "b848000.m3u8",
+    "StreamRefreshInterval": 1,
+    "StreamLastRefresh": "2017-01-16T22:49:29.2876107+01:00"
+  },
+  {
+    "StreamName": "Kanal D",
+    "StreamWebsite": "http://www.canlitv.life/kanal-d",
+    "StreamSource": "http://50.7.132.10/live/kanald/chunks.m3u8?nimblesessionid=7194556&wmsAuthSign=c2VydmVyX3RpbWU9MS8xNi8yMDE3IDk6NTA6MjUgUE0maGFzaF92YWx1ZT1hRDdrVytyRU1IQTJJZTVXZFlNcVB3PT0mdmFsaWRtaW51dGVzPTE4MA==",
+    "StreamUniqueKeyword": "kanald/chunks.m3u8",
+    "StreamRefreshInterval": 1,
+    "StreamLastRefresh": "2017-01-16T22:49:34.0577464+01:00"
+  },
+  {
+    "StreamName": "Ciftci TV",
+    "StreamWebsite": "http://www.canlitv.com/cifci-tv",
+    "StreamSource": "http://151.80.102.86:1935/ciftcitv/smil:ciftcitv.smil/playlist.m3u8",
+    "StreamUniqueKeyword": "ciftcitv.smil/playlist.m3u8",
+    "StreamRefreshInterval": -1,
+    "StreamLastRefresh": "2017-01-15T15:34:22.7075116+01:00"
+  },
+  {
+    "StreamName": "TVNET",
+    "StreamWebsite": "http://www.tvnet.com.tr/canli-yayin",
+    "StreamSource": "http://canli2.tvnet.tv.tr/live/smil:tvnet.smil/chunklist_b1200000.m3u8",
+    "StreamUniqueKeyword": "b1200000.m3u8",
+    "StreamRefreshInterval": -1,
+    "StreamLastRefresh": "2017-01-16T22:51:23.1086571+01:00"
+  }
+]

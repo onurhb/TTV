@@ -223,11 +223,11 @@ bool Window::isMouseLeftPressed() const {
     return mouseLeft;
 }
 
-int Window::getWidth() const {
+unsigned int Window::getWidth() const {
     return windowWidth;
 }
 
-int Window::getHeight() const {
+unsigned int Window::getHeight() const {
     return windowHeight;
 }
 

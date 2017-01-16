@@ -97,7 +97,7 @@ void Stream::createQuad() {
 
 void Stream::initializeVLC() {
     // - Initialize libvlc
-    const char *vlc_argv[] = {};
+    const char *vlc_argv[] = {"--verbose=0"};
     int vlc_argc = sizeof(vlc_argv) / sizeof(*vlc_argv);
     instance = libvlc_new(vlc_argc, vlc_argv);
 
@@ -191,6 +191,29 @@ bool Stream::resume() {
     libvlc_media_player_play(mediaPlayer);
     this->streamPaused = false;
     return true;
+}
+
+STREAMSTATE Stream::getState() {
+    libvlc_state_t state = libvlc_media_get_state(media);
+
+    switch (state) {
+        case libvlc_Opening:
+            return OPENING;
+        case libvlc_Buffering:
+            return BUFFERING;
+        case libvlc_Playing:
+            return PLAYING;
+        case libvlc_Paused:
+            return PAUSED;
+        case libvlc_Stopped:
+            return STOPPED;
+        case libvlc_Ended:
+            return ENDED;
+        case libvlc_Error:
+            return ERR;
+        default:
+            return NOTHING;
+    }
 }
 
 bool Stream::destroy() {

@@ -18,7 +18,7 @@ class Window {
 
     bool fullScreen = false;
     bool mouseLeft = false, mouseRight = false;
-    int windowWidth, windowHeight;
+    unsigned int windowWidth, windowHeight;
     double xoffset, yoffset;
     double mouseX, mouseY;
     bool keys[MAX_KEYS];
@@ -40,8 +40,8 @@ public:
     bool isMouseRightPressed() const;
     bool getKeyPressed(int key) const;
     GLFWwindow* getWindow() const;
-    int getWidth() const;
-    int getHeight() const;
+    unsigned int getWidth() const;
+    unsigned int getHeight() const;
 
 private:
     static bool loadContext();
