@@ -7,8 +7,10 @@
 find_path(
         CURL_INCLUDE_DIR
         NAMES curl/curl.h
+        usr/include/curl/curl.h
         PATHS
         "${CURL_LOCATION}/include"
+        usr/include/curl/curl.h
         DOC "curl include dir"
 )
 
@@ -18,6 +20,7 @@ find_library(
         NAMES curl curllib libcurl_imp curllib_static libcurl
         PATHS
         "${CURL_LOCATION}/lib"
+        /usr/lib/x86_64-linux-gnu
         DOC "curl library"
 )
 

@@ -19,8 +19,6 @@ Application::Application()
         interface.setChannels(channelNames);
     }
 
-
-
 }
 
 Application::~Application() {
@@ -57,8 +55,8 @@ void Application::render() {
 
     stream.render();
     if(displayOverlay) interface.render();
-    if(stream.getState() == OPENING) interface.renderState();
-
+    if(stream.getState() == LOADING) interface.renderState("Loading stream");
+    else if(stream.getState() == ERR) interface.renderState("Failed opening stream");
 }
 
 /**
@@ -106,7 +104,7 @@ bool Application::loop() {
     bool closed = false;
 
     // - Updates are handled by another thread
-    thread.startThread(Application::update, this, std::ref(closed));
+    thread.startThread(&Application::update, this, std::ref(closed));
 
     while (!window.closed()) {
         window.clear();

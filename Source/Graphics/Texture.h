@@ -3,7 +3,7 @@
 #define PROJECT_TEXTURE_H
 
 // -------------- INCLUDES
-#include <glad/glad.h>
+#include <GL/glew.h>
 #include <iostream>
 
 /**

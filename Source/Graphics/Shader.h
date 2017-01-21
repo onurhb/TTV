@@ -2,7 +2,7 @@
 #define PROJECT_SHADERMANAGER_H
 
 // ------------------ INCLUDES
-#include <glad/glad.h>
+#include <GL/glew.h>
 #include "glm.hpp"
 #include <map>
 // ------------------

@@ -3,7 +3,7 @@
 #define PROJECT_USERINTERFACE_H
 // -------------- INCLUDES
 #include "../config.h"
-#include <glad/glad.h>
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <nanovg.h>
 #include <string>
@@ -41,7 +41,7 @@ public:
     void drawClock(NVGcontext *ctx, float x, float y, float w, float h);
     void drawShadowBg();
     void drawChannelsMenu(NVGcontext *ctx, float x, float y, float w, float h);
-    void renderState();
+    void renderState(std::string state);
     // ------------------- HELPERS
     bool insideRectangle(float rectX, float rectY, float rectW, float rectH);
     void setChannels(std::vector<std::string> channelNames);

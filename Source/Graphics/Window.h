@@ -4,7 +4,7 @@
 // ------------------- MACROS
 #define MAX_KEYS 1024
 // ------------------- INCLUDES
-#include <glad/glad.h>
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <string>
 #include "../config.h"

@@ -73,7 +73,7 @@ void UserInterface::drawMenu(NVGcontext *ctx, float x, float y, float w, float h
     // - Menu options
     x += windowWidth / 6;
     y += h / 2;
-    for (int i = 0; i < menuOptions.size(); ++i) {
+    for (unsigned int i = 0; i < menuOptions.size(); ++i) {
         if (insideRectangle(x, y - 20, 150, 45) && click) selectedMenuOption = i;
 
         nvgFontSize(ctx, 36.0f);
@@ -183,17 +183,23 @@ unsigned int UserInterface::getActiveChannel() const {
     return selectedChannelOption;
 }
 
-void UserInterface::renderState() {
+void UserInterface::renderState(std::string state) {
     NVGpaint bg = nvgLinearGradient(ctx, 50, 50, 50, 75, nvgRGBA(60, 65, 75, 240), nvgRGBA(15, 15, 20, 240));
     nvgBeginPath(ctx);
-    nvgRoundedRect(ctx, 50, 50, 100, 40, 2.0);
+    nvgRoundedRect(ctx, 50, 50, 12 * state.length(), 40, 2.0);
     nvgFillPaint(ctx, bg);
     nvgFill(ctx);
+
+    // - Outline
+    nvgBeginPath(ctx);
+    nvgRoundedRect(ctx, 50 + 0.5f, 50 + 0.5f, 12 * state.length() - 1, 40 - 1, 2.0);
+    nvgStrokeColor(ctx, nvgRGB(0, 0, 0));
+    nvgStroke(ctx);
 
     nvgFontSize(ctx, 24.0f);
     nvgFillColor(ctx, nvgRGBA(240, 240, 240, 240));
     nvgTextAlign(ctx, NVG_ALIGN_LEFT | NVG_ALIGN_MIDDLE);
-    nvgText(ctx, 55, 70, "Loading", NULL);
+    nvgText(ctx, 55, 70, state.c_str(), NULL);
 }
 
 

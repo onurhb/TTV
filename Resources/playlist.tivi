@@ -2,10 +2,10 @@
   {
     "StreamName": "A Haber",
     "StreamWebsite": "http://www.ahaber.com.tr/webtv/canli-yayin",
-    "StreamSource": "http://trkvz-live.ercdn.net/ahaberhd/ahaberhd_720p.m3u8?st=JUp0rqalvxzbiSX1Jkz-HQ&e=1484618198",
+    "StreamSource": "http://trkvz-live.ercdn.net/ahaberhd/ahaberhd_720p.m3u8?st=Fz4tvIkERMBIHOHMxSgEsQ&e=1484886146",
     "StreamUniqueKeyword": "720p.m3u8",
     "StreamRefreshInterval": 12,
-    "StreamLastRefresh": "2017-01-16T15:22:21.6063686+01:00"
+    "StreamLastRefresh": "2017-01-19T17:48:09.1627695+01:00"
   },
   {
     "StreamName": "TRT Haber",
@@ -13,39 +13,39 @@
     "StreamSource": "http://trtcanlitv-lh.akamaihd.net/i/TRT1HD_1@181842/index_1500_av-b.m3u8?sd=10&rebase=on",
     "StreamUniqueKeyword": "index_1500_av-b.m3u8",
     "StreamRefreshInterval": -1,
-    "StreamLastRefresh": "2017-01-15T00:44:36.3420045+01:00"
+    "StreamLastRefresh": "2017-01-17T00:07:18.6774094+01:00"
   },
   {
     "StreamName": "HaberTurk",
     "StreamWebsite": "http://www.haberturk.com/canliyayin",
-    "StreamSource": "http://mn-i.mncdn.com/haberturk/smil:haberturk.smil/chunklist_w932909458_b848000.m3u8?token=9e4fe0b22e2b212965291329e8fb4489bf2685ac6a69e243",
+    "StreamSource": "http://mn-i.mncdn.com/haberturk/smil:haberturk.smil/playlist.m3u8?token=1c382501874168071a72dc1f2383cad75be51810f5e9c089",
     "StreamUniqueKeyword": ".m3u8?token",
     "StreamRefreshInterval": 1,
-    "StreamLastRefresh": "2017-01-16T22:49:25.2563763+01:00"
+    "StreamLastRefresh": "2017-01-19T17:48:13.4755786+01:00"
   },
   {
     "StreamName": "ATV",
     "StreamWebsite": "http://atv.com.tr/webtv/canli-yayin",
-    "StreamSource": "http://trkvz-live.ercdn.net/atvhd/atvhd_720p.m3u8?st=bazR3i5dQv-j8pSinkIUQw&e=1484618203",
+    "StreamSource": "http://trkvz-live.ercdn.net/atvhd/atvhd_720p.m3u8?st=hRBKSGfx1-VWxExb-kMcaA&e=1484886156",
     "StreamUniqueKeyword": "720p.m3u8",
     "StreamRefreshInterval": 12,
-    "StreamLastRefresh": "2017-01-16T15:22:26.2965505+01:00"
+    "StreamLastRefresh": "2017-01-19T17:48:16.9492927+01:00"
   },
   {
     "StreamName": "Show TV",
     "StreamWebsite": "http://www.showtv.com.tr/canli-yayin/showtv",
-    "StreamSource": "http://mn-i.mncdn.com/showtv_ios/smil:showtv.smil/chunklist_w1208863216_b848000.m3u8?token=aaa7c845d310a0e68ceb4b3f46d0e896fc164caad6ed9c69",
+    "StreamSource": "http://mn-i.mncdn.com/showtv_ios/smil:showtv.smil/chunklist_w1642978931_b848000.m3u8?token=703e7698e61fe3fbee128b0dacf11e1ae60ee8130a9e2547",
     "StreamUniqueKeyword": "b848000.m3u8",
     "StreamRefreshInterval": 1,
-    "StreamLastRefresh": "2017-01-16T22:49:29.2876107+01:00"
+    "StreamLastRefresh": "2017-01-19T17:48:20.8454202+01:00"
   },
   {
     "StreamName": "Kanal D",
-    "StreamWebsite": "http://www.canlitv.life/kanal-d",
-    "StreamSource": "http://50.7.132.10/live/kanald/chunks.m3u8?nimblesessionid=7194556&wmsAuthSign=c2VydmVyX3RpbWU9MS8xNi8yMDE3IDk6NTA6MjUgUE0maGFzaF92YWx1ZT1hRDdrVytyRU1IQTJJZTVXZFlNcVB3PT0mdmFsaWRtaW51dGVzPTE4MA==",
-    "StreamUniqueKeyword": "kanald/chunks.m3u8",
+    "StreamWebsite": "http://www.ocanlitv.com/kanal-d-izle",
+    "StreamSource": "http://178.162.205.72:8081/live_sd/kanald/live_sd/kanald_hi/chunks.m3u8?nimblesessionid=49344275&wmsAuthSign=c2VydmVyX3RpbWU9MS8xOS8yMDE3IDQ6NDk6MTkgUE0maGFzaF92YWx1ZT1LMDNuek9QdExWT1VLd0JTbnZJOTlnPT0mdmFsaWRtaW51dGVzPTEwJmlwPTEyOC4zOS4xNDguMTUw",
+    "StreamUniqueKeyword": "kanald_hi/chunks.m3u8",
     "StreamRefreshInterval": 1,
-    "StreamLastRefresh": "2017-01-16T22:49:34.0577464+01:00"
+    "StreamLastRefresh": "2017-01-19T17:48:24.3597269+01:00"
   },
   {
     "StreamName": "Ciftci TV",
@@ -53,7 +53,7 @@
     "StreamSource": "http://151.80.102.86:1935/ciftcitv/smil:ciftcitv.smil/playlist.m3u8",
     "StreamUniqueKeyword": "ciftcitv.smil/playlist.m3u8",
     "StreamRefreshInterval": -1,
-    "StreamLastRefresh": "2017-01-15T15:34:22.7075116+01:00"
+    "StreamLastRefresh": "2017-01-17T00:07:39.7343685+01:00"
   },
   {
     "StreamName": "TVNET",
@@ -61,6 +61,6 @@
     "StreamSource": "http://canli2.tvnet.tv.tr/live/smil:tvnet.smil/chunklist_b1200000.m3u8",
     "StreamUniqueKeyword": "b1200000.m3u8",
     "StreamRefreshInterval": -1,
-    "StreamLastRefresh": "2017-01-16T22:51:23.1086571+01:00"
+    "StreamLastRefresh": "2017-01-17T00:07:45.5963133+01:00"
   }
 ]

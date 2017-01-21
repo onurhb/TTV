@@ -134,7 +134,7 @@ bool Window::initialize() {
  * @return
  */
 bool Window::loadContext() {
-    if (!gladLoadGL()) {
+    if (!glewInit()) {
         std::cerr << "Failed to load GLAD" << std::endl;
         return false;
     }

@@ -8,23 +8,28 @@ find_path(
         NAMES vlc/vlc.h
         HINTS
         ${LIBVLC_LOCATION}/include
+        "/usr/include"
+        "/usr/include/vlc"
+        "/usr/local/include"
+        "/usr/local/include/vlc"
 )
-message("${LIBVLC_INCLUDE_DIR}")
 
 find_library(
         LIBVLC_LIBVLC
         # names from cmake's FindCURL
-        NAMES libvlc
-        PATHS
+        NAMES libvlc libvlc.so
+        HINTS
         ${LIBVLC_LOCATION}/lib
+        usr/lib
 )
 
 find_library(
         LIBVLC_LIBVLCCORE
         # names from cmake's FindCURL
-        NAMES libvlccore
-        PATHS
+        NAMES libvlccore libvlccore.so
+        HINTS
         ${LIBVLC_LOCATION}/lib
+        usr/lib
 )
 
 set(LIBVLC_INCLUDE_DIRS ${LIBVLC_INCLUDE_DIR})

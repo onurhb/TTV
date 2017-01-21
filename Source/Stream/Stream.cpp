@@ -198,7 +198,7 @@ STREAMSTATE Stream::getState() {
 
     switch (state) {
         case libvlc_Opening:
-            return OPENING;
+            return LOADING;
         case libvlc_Buffering:
             return BUFFERING;
         case libvlc_Playing:
