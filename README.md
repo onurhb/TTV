@@ -3,7 +3,7 @@ Tivi is a minimal turkish live stream client for streaming turkish TV using VLC.
 
 
 # Build
-On linux, install following packages: <br/ >
+On linux, install following packages: <br/>
 * libvlc-dev
 * libvlccore-dev
 * libcurl
